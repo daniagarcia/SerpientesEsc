@@ -15,5 +15,9 @@
 
 const Route = use('Route')
 
+// Route.on('/').render('welcome')
+// Route.on('/chat').render('chat')
 Route.on('/').render('welcome')
-Route.on('/chat').render('chat')
+
+Route.post('/insertarUser' , 'DatoController.AddUser');
+Route.post('/login' , 'DatoController.Login');

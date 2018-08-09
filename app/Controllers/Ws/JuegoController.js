@@ -17,8 +17,8 @@ class JuegoController {
         this.socket.broadcast("message",message);
     }
     
-    onPartida(){
-
+    onPartida(message){
+        this.socket.broadcast("partida",message);
     }
 
 }

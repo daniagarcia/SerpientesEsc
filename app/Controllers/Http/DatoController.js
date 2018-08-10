@@ -37,6 +37,15 @@ class DatoController {
             }
         }
     }
+
+
+    agregarGanadas(){
+
+    }
+
+    agregarPerdidad(){
+        
+    }
 }
 
 

@@ -5,12 +5,20 @@ const User = use('App/Models/User')
 const Token = use('App/Models/Token')
 
 class DatoController {
+
+
+    async agregarGanadasPerdidas({ params, request, response,auth}){
+        if(params.action =='ganadas'){
+            await Database.table('users').where('usuarios',params.id).update('ganadas','ganadas+1')
+        }else if(params.action =='perdidas'){
+            await Database.table('users').where('usuarios',params.id).update('perdidas','perdidas+1')        
+      }
+}
     async AddUser({ params, request, response }) {
         if (!request.input('usu') || !request.input('email') || !request.input('psw') ) {
             return response.json({ status: 200, data: 'Campos vacios' })
         }
-        else {
-            
+        else {            
 
             const user = new User()
             user.username = request.input('usu')
@@ -38,14 +46,13 @@ class DatoController {
         }
     }
 
+    // mostrarestadisticas({params, request, response}){
+    //     // return await Database.select('ganadas,perdidas').from('users').where('usuarios','=',params.id)
+    // }
 
-    agregarGanadas(){
 
-    }
 
-    agregarPerdidad(){
-        
-    }
+   
 }
 
 

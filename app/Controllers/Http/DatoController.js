@@ -6,17 +6,25 @@ const Token = use('App/Models/Token')
 
 class DatoController {
 
-
+    
     async agregarGanadasPerdidas({ params, request, response, auth }) {
-        if (params.action == 'ganadas') {
-            await Database.table('users').where('usuarios', params.id).update('ganadas', 'ganadas+1')
-        } else if (params.action == 'perdidas') {
-            await Database.table('users').where('usuarios', params.id).update('perdidas', 'perdidas+1')
+        
+        if (params.action == request.input('accion')) {
+            await Database.table('users').where('id', request.input('id')).update('ganadas','ganadas+1')
+        } else if (params.action == request.input('accion')) {
+            await Database.table('users').where('id', request.input('id')).update('perdidas','perdidas+1')
         }
     }
 
-    async mostrarestadisticas({ params, request, response }) {
-        return await Database.select('ganadas','perdidas').from('users').where('usuarios', '=', params.id)
+    async mostrarestadisticas({ params, request, response,auth }) {
+        return {
+                 user: await User
+                .query()
+                .where('id', request.input('id'))
+                .first()
+        }
+        console.log(request.input('id'))
+        // return await Database.select('ganadas','perdidas').from('users').where('id', '=',request.input('id'))
     }
 
     async AddUser({ params, request, response }) {

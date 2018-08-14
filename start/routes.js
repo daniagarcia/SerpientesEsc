@@ -21,6 +21,7 @@ Route.on('/').render('welcome')
 
 Route.post('/insertarUser','DatoController.AddUser');
 Route.post('/login','DatoController.Login');
-Route.get('/mostrar','DatoController.mostrarestadisticas');
 Route.post('/estadisticas','DatoController.agregarGanadasPerdidas');
+Route.post('/mostrar','DatoController.mostrarestadisticas');
+
 

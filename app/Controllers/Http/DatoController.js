@@ -9,14 +9,19 @@ class DatoController {
     
     async agregarGanadasPerdidas({ params, request, response, auth }) {
         
-        if(request.input('action') == 'ganadas'){
+        if(request.input('accion') == 'ganar'){
             const usuario = await User.find(request.input('id'))
+            console.log(usuario)
             usuario.ganadas = usuario.ganadas + 1
             await usuario.save()
-        }else if(request.input('action') == 'perdidas'){
+            console.log(usuario)
+        }else if(request.input('accion') == 'perder '){
             const usuario = await User.find(request.input('id'))
+            console.log(usuario)
             usuario.perdidas = usuario.perdidas + 1
             await usuario.save()
+            console.log(usuario)
+
         }
         // if (params.action == request.input('accion')) {
         //     await Database.table('users').where('id', request.input('id')).update('ganadas','ganadas+1')

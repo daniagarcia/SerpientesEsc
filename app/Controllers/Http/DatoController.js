@@ -9,11 +9,20 @@ class DatoController {
     
     async agregarGanadasPerdidas({ params, request, response, auth }) {
         
-        if (params.action == request.input('accion')) {
-            await Database.table('users').where('id', request.input('id')).update('ganadas','ganadas+1')
-        } else if (params.action == request.input('accion')) {
-            await Database.table('users').where('id', request.input('id')).update('perdidas','perdidas+1')
+        if(request.input('action') == 'ganadas'){
+            const usuario = await User.find(request.input('id'))
+            usuario.ganadas = usuario.ganadas + 1
+            await usuario.save()
+        }else if(request.input('action') == 'perdidas'){
+            const usuario = await User.find(request.input('id'))
+            usuario.perdidas = usuario.perdidas + 1
+            await usuario.save()
         }
+        // if (params.action == request.input('accion')) {
+        //     await Database.table('users').where('id', request.input('id')).update('ganadas','ganadas+1')
+        // } else if (params.action == request.input('accion')) {
+        //     await Database.table('users').where('id', request.input('id')).update('perdidas','perdidas+1')
+        // }
     }
 
     async mostrarestadisticas({ params, request, response,auth }) {

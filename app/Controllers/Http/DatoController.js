@@ -61,15 +61,33 @@ class DatoController {
             return response.json({ status: 200, data: 'Campos vacios' })
         }
         else {
-            return {
-                sesion: await auth
-                    .withRefreshToken()
-                    .attempt(request.input('usu'), request.input('psw')),
-                user: await User
-                    .query()
-                    .where('username', request.input('usu'))
-                    .first()
-            }
+            var usuario 
+            var  sesion 
+
+             var object = {
+                 usuarios:usuario,
+                 sesions:sesion
+             }
+             try{
+                 usuario =  await User.query().where('username', request.input('usu')).first()
+                 sesion =  await auth.withRefreshToken().attempt(request.input('usu'), request.input('psw'))
+                 object.usuarios = usuario
+                 
+             }catch(e){
+
+             }finally{
+                return object;
+             }
+            
+            // return {
+            //     sesion: await auth
+            //         .withRefreshToken()
+            //         .attempt(request.input('usu'), request.input('psw')),
+            //     user: await User
+            //         .query()
+            //         .where('username', request.input('usu'))
+            //         .first()
+            // }
         }
     }
 

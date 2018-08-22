@@ -15,13 +15,13 @@ class DatoController {
             usuario.ganadas = usuario.ganadas + 1
             await usuario.save()
             console.log(usuario)
-        }else if(request.input('accion') == 'perder '){
+        }else if(request.input('accion') == 'perder'){
             const usuario = await User.find(request.input('id'))
             console.log(usuario)
             usuario.perdidas = usuario.perdidas + 1
             await usuario.save()
             console.log(usuario)
-
+            
         }
         // if (params.action == request.input('accion')) {
         //     await Database.table('users').where('id', request.input('id')).update('ganadas','ganadas+1')
@@ -61,33 +61,34 @@ class DatoController {
             return response.json({ status: 200, data: 'Campos vacios' })
         }
         else {
-            // var usuario 
-            // var  sesion 
+             var usuario 
+             var sesion 
 
-            //  var object = {
-            //      usuario:usuario,
-            //      sesion:sesion
-            //  }
-            //  try{
-            //      usuario =  await User.query().where('username', request.input('usu')).first()
-            //      sesion =  await auth.withRefreshToken().attempt(request.input('usu'), request.input('psw'))
-            //      object.usuarios = usuario
+              var object = {
+                  usuario:{},
+                  sesion:{}
+              }
+              try{
+                  usuario =  await User.query().where('username', request.input('usu')).first()
+                  sesion =  await auth.withRefreshToken().attempt(request.input('usu'), request.input('psw'))
+                  object.usuario =   usuario
+                  object.sesion = sesion
                  
-            //  }catch(e){
+              }catch(e){
 
-            //  }finally{
-            //     return object;
-            //  }
+              }finally{
+                 return object;
+              }
             
-            return {
-                sesion: await auth
-                    .withRefreshToken()
-                    .attempt(request.input('usu'), request.input('psw')),
-                user: await User
-                    .query()
-                    .where('username', request.input('usu'))
-                    .first()
-            }
+            //return {
+            //    sesion: await auth
+            //        .withRefreshToken()
+            //        .attempt(request.input('usu'), request.input('psw')),
+            //    user: await User
+            //       .query()
+            //        .where('username', request.input('usu'))
+            //        .first()
+            //}
         }
     }
 
